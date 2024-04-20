@@ -21,7 +21,7 @@ public class Atividades {
 
     private String descricao;
 
-    private LocalDateTime criacao;
+    private LocalDateTime criado_em;
 
     private String localizacao;
 
@@ -33,7 +33,7 @@ public class Atividades {
         this.id=dto.id();
         this.atividade=dto.atividade();
         this.descricao=dto.descricao();
-        this.criacao =LocalDateTime.now();
+        this.criado_em=LocalDateTime.now();
         this.localizacao=dto.localizacao();
         this.max_participantes= dto.max_participantes();
     }
