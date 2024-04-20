@@ -14,7 +14,7 @@ public class OrgCriadoEmImpStrategy implements OrganizacaoStrategy {
     @Override
     public Page<Atividades> organizar(Page<Atividades> atividades) {
         List<Atividades> atividadesList = atividades.getContent();
-        atividadesList.sort(Comparator.comparing(Atividades::getCriado_em));
+        atividadesList.sort(Comparator.comparing(Atividades::getCriacao));
         return new PageImpl<>(atividadesList, atividades.getPageable(), atividades.getTotalElements());
     }
 }

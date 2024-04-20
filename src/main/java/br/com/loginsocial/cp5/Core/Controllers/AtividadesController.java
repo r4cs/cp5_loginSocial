@@ -4,6 +4,8 @@ import br.com.loginsocial.cp5.Core.Entities.Atividades;
 import br.com.loginsocial.cp5.Core.Entities.DTO.AtividadesDTO;
 import br.com.loginsocial.cp5.Core.Services.AtividadeService;
 import br.com.loginsocial.cp5.Core.Services.Mappers.AtividadesMapper;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,19 +46,35 @@ public class AtividadesController {
     }
 
     @GetMapping()
-    public ResponseEntity<Page<Atividades>> listarAtividades(@RequestParam Integer page, @RequestParam Integer size) {
-        Pageable defaultPageable = PageRequest.of(
-                page,
-                size,
-                Sort.by("id")
-        );
+    public ResponseEntity<Page<Atividades>> listarAtividades(
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size,
+            @RequestParam(required = false)
+            @Parameter(
+                    description = "Organizar por (id, criado_em, atividade, localizacao)",
+                    example = "id",
+                    schema = @Schema(allowableValues = {
+                            "id", "criacao", "atividade", "localizacao"
+                    })) String sortBy) {
 
-        Page<Atividades> atividades = service.findAll(defaultPageable);
+        Pageable pageable;
+
+        if (sortBy != null && !sortBy.isEmpty()) {
+            pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by("id"));
+        }
+
+        Page<Atividades> atividades = service.findAll(pageable);
         return ResponseEntity.ok(atividades);
     }
+
 
     @DeleteMapping(value="/{id}")
     public ResponseEntity<String> deletarAtividade(@PathVariable Long id) {
         return ResponseEntity.ok(service.delete(id));
     }
+
+
 }

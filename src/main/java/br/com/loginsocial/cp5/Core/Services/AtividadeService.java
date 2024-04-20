@@ -60,8 +60,8 @@ public class AtividadeService {
             Optional.ofNullable(atividadeAtualizada.getDescricao())
                     .ifPresent(atividades::setDescricao);
 
-            Optional.ofNullable(atividadeAtualizada.getCriado_em())
-                    .ifPresent(atividades::setCriado_em);
+            Optional.ofNullable(atividadeAtualizada.getCriacao())
+                    .ifPresent(atividades::setCriacao);
 
             Optional.ofNullable(atividadeAtualizada.getLocalizacao())
                     .ifPresent(atividades::setLocalizacao);
@@ -92,6 +92,8 @@ public class AtividadeService {
     }
 
     public Page<Atividades> findAll(Pageable pageable) {
+        System.out.println("Pageable findAll: " + pageable);
+        System.out.println("Pageable findAll: " + pageable.toString());
         return repo.findAll(pageable);
     }
 

@@ -16,7 +16,7 @@ public class AtividadesMapperImp implements  AtividadesMapper{
                 atividadesSource.getId(),
                 atividadesSource.getAtividade(),
                 atividadesSource.getDescricao(),
-                atividadesSource.getCriado_em(),
+                atividadesSource.getCriacao(),
                 atividadesSource.getLocalizacao(),
                 atividadesSource.getMax_participantes()
         );

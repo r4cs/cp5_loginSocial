@@ -1,8 +1,9 @@
 package br.com.loginsocial.cp5.Core.Entities.DTO;
 
 import br.com.loginsocial.cp5.Core.Entities.Atividades;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import org.hibernate.sql.Update;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
  */
 
 public record AtividadesDTO(
+        @Schema(hidden = true)
         Long id,
 
         @NotBlank
@@ -24,7 +26,8 @@ public record AtividadesDTO(
         String descricao,
 
         @DateTimeFormat
-        LocalDateTime criado_em,
+        @Schema(hidden = true)
+        LocalDateTime criacao,
 
         String localizacao,
 
@@ -35,7 +38,7 @@ public record AtividadesDTO(
                 atividades.getId(),
                 atividades.getAtividade(),
                 atividades.getDescricao(),
-                atividades.getCriado_em(),
+                atividades.getCriacao(),
                 atividades.getLocalizacao(),
                 atividades.getMax_participantes()
 
